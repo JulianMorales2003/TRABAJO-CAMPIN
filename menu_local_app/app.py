@@ -21,7 +21,7 @@ menu_occidental = [
     {"id": 12, "categoria": "BEBIDAS", "nombre": "AGUA BRISA SIN GAS", "precio": 10000},
     {"id": 13, "categoria": "BEBIDAS", "nombre": "CAFE AMERICANO", "precio": 5000},
     {"id": 14, "categoria": "BEBIDAS", "nombre": "JUGO HIT 200ML", "precio": 5000},
-    {"id": 15, "categoria": "BEBIDAS", "nombre": "CERVEZA CERO", "precio": 9000},
+    {"id": 15, "categoria": "BEBIDAS", "nombre": "CERVEZA CERO", "precio": 12000},
 ]
 
 # Menú para sede NORTE (todo en mayúsculas)
