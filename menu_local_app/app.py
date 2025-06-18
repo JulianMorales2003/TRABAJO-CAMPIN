@@ -34,7 +34,7 @@ menu_norte = [
     {"id": 6, "categoria": "BEBIDAS", "nombre": "GATORADE SIN AZÚCAR", "precio": 10000},
     {"id": 7, "categoria": "BEBIDAS", "nombre": "JUGO EN CAJA HIT", "precio": 4000},
     {"id": 8, "categoria": "BEBIDAS", "nombre": "CAFÉ AMERICANO", "precio": 4000},
-    {"id": 9, "categoria": "BEBIDAS", "nombre": "CERVEZA ÁGUILA CERO", "precio": 9000},
+    {"id": 9, "categoria": "BEBIDAS", "nombre": "CERVEZA CERO", "precio": 9000},
     {"id": 10, "categoria": "COMIDAS", "nombre": "CRISPETAS DE SAL", "precio": 15000},
     {"id": 11, "categoria": "COMIDAS", "nombre": "PERRO CALIENTE AMERICANO", "precio": 18000},
     {"id": 12, "categoria": "COMIDAS", "nombre": "HAMBURGUESA CON TOCINETA", "precio": 21000},
