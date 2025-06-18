@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Pedidos</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        h2 { color: #333; }
+        .seccion { margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #e8e8e8; }
+        form { display: inline; }
+        input[type="number"] { width: 60px; }
+        .total { font-weight: bold; font-size: 1.2em; }
+        .btn { padding: 5px 10px; margin: 2px; }
+    </style>
+</head>
+<body>
+
+    <h1>Menú Occidental</h1>
+
+    <div class="seccion">
+        <form action="/agregar" method="post">
+            <label>Producto:</label>
+            <select name="producto_id">
+                {% for producto in menu %}
+                    <option value="{{ producto.id }}">{{ producto.nombre }} - ${{ producto.precio }}</option>
+                {% endfor %}
+            </select>
+            <label>Cantidad:</label>
+            <input type="number" name="cantidad" value="1" min="1" required>
+            <button class="btn" type="submit">Agregar al Pedido</button>
+        </form>
+    </div>
+
+    <div class="seccion">
+        <h2>Pedido Actual</h2>
+        {% if pedido %}
+        <table>
+            <tr>
+                <th>Producto</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+            {% for item in pedido %}
+            <tr>
+                <td>{{ item.nombre }}</td>
+                <td>${{ item.precio_unitario }}</td>
+                <td>
+                    <form action="/actualizar" method="post">
+                        <input type="hidden" name="producto_id" value="{{ item.id }}">
+                        <input type="number" name="nueva_cantidad" value="{{ item.cantidad }}" min="0">
+                        <button class="btn" type="submit">Actualizar</button>
+                    </form>
+                </td>
+                <td>${{ item.precio_unitario * item.cantidad }}</td>
+                <td>
+                    <form action="/actualizar" method="post">
+                        <input type="hidden" name="producto_id" value="{{ item.id }}">
+                        <input type="hidden" name="nueva_cantidad" value="0">
+                        <button class="btn" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p class="total">Total: ${{ total }}</p>
+
+        <form action="/finalizar" method="post">
+            <label>¿Cómo pagó el cliente?</label>
+            <select name="metodo_pago" required>
+                <option value="efectivo">Efectivo</option>
+                <option value="datafono">Datafono</option>
+            </select>
+            <button class="btn" type="submit">Finalizar Pedido</button>
+        </form>
+
+        <form action="/reiniciar" method="get">
+            <button class="btn" type="submit">Reiniciar Pedido</button>
+        </form>
+        {% else %}
+            <p>No hay productos en el pedido.</p>
+        {% endif %}
+    </div>
+
+    <div class="seccion">
+        <h2>Resumen de Pedidos</h2>
+        <p>Total en efectivo: ${{ efectivo }}</p>
+        <p>Total con datafono: ${{ datafono }}</p>
+
+        {% if historial %}
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Productos</th>
+                <th>Total</th>
+                <th>Método de Pago</th>
+                <th>Acción</th>
+            </tr>
+            {% for pedido in historial %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>
+                    {% for item in pedido["items"] %}
+                        {{ item.cantidad }} × {{ item.nombre }}<br>
+                    {% endfor %}
+                </td>
+                <td>${{ pedido.total }}</td>
+                <td>{{ pedido.metodo_pago }}</td>
+                <td>
+                    <form action="{{ url_for('eliminar_pedido', indice=loop.index0) }}" method="post">
+                        <button class="btn" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <form action="{{ url_for('eliminar_todos') }}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar todos los pedidos?');">
+            <button class="btn" type="submit" style="margin-top: 10px; background-color: #e74c3c; color: white;">Eliminar Todos</button>
+        </form>
+        {% else %}
+            <p>No hay pedidos realizados aún.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
