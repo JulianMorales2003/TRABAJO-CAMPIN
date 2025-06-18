@@ -38,7 +38,7 @@ menu_norte = [
     {"id": 10, "categoria": "COMIDAS", "nombre": "CRISPETAS DE SAL", "precio": 15000},
     {"id": 11, "categoria": "COMIDAS", "nombre": "PERRO CALIENTE AMERICANO", "precio": 18000},
     {"id": 12, "categoria": "COMIDAS", "nombre": "HAMBURGUESA CON TOCINETA", "precio": 21000},
-    {"id": 13, "categoria": "COMIDAS", "nombre": "COMBO SÁNDUCHE + JUGO", "precio": 20000},
+    {"id": 13, "categoria": "COMIDAS", "nombre": "COMBO SÁNDUCHE + JUGO", "precio": 12000},
     {"id": 14, "categoria": "COMIDAS", "nombre": "DEDO DE QUESO", "precio": 10000},
     {"id": 15, "categoria": "COMIDAS", "nombre": "LECHONA LOCAL", "precio": 20000},
 ]
