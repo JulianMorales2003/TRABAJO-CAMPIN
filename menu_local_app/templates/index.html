@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú - {{ sede_actual }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f2f2f2;
+            margin: 0;
+        }
+
+        .barra-superior {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #343a40;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .flecha {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .flecha:hover {
+            text-decoration: underline;
+        }
+
+        .titulo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .sede {
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background-color: white;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.05);
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        form {
+            display: inline;
+        }
+
+        .boton {
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton:hover {
+            background-color: #0056b3;
+        }
+
+        .seccion-total {
+            font-size: 18px;
+        }
+
+        select, input[type="number"] {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        .formulario-producto {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .boton-grande {
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+
+        .tarjetas-productos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .tarjeta-producto {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            width: 160px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .tarjeta-producto h3 {
+            margin-top: 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .input-cantidad {
+            width: 50px;
+            margin: 8px 0;
+            padding: 4px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .boton {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="barra-superior">
+        <a href="/" class="flecha">&#8592; Cambiar Sede</a>
+        <span class="titulo">Menú - {{ sede_actual }}</span>
+    </div>
+
+    <div class="sede">Estás visualizando los productos de la sede: <strong>{{ sede_actual }}</strong></div>
+
+    <h2>Agregar Productos</h2>
+    <div class="tarjetas-productos">
+        {% for item in menu %}
+        <div class="tarjeta-producto">
+            <h3>{{ item.nombre }}</h3>
+            <p>Precio: ${{ item.precio }}</p>
+            <form method="POST" action="/agregar">
+                <input type="hidden" name="producto_id" value="{{ item.id }}">
+                <input type="number" name="cantidad" value="1" min="1" class="input-cantidad">
+                <button class="boton" type="submit">Agregar</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2>Pedido Actual</h2>
+    <table>
+        <tr>
+            <th>Producto</th>
+            <th>Precio Unitario</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+            <th>Actualizar</th>
+        </tr>
+        {% for item in pedido %}
+        <tr>
+            <td>{{ item.nombre }}</td>
+            <td>${{ item.precio_unitario }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>${{ item.precio_unitario * item.cantidad }}</td>
+            <td>
+                <form method="POST" action="/actualizar">
+                    <input type="hidden" name="producto_id" value="{{ item.id }}">
+                    <input type="number" name="nueva_cantidad" value="{{ item.cantidad }}" min="0">
+                    <button class="boton" type="submit">Actualizar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p style="font-size: 20px; text-align: center;"><strong>Total a Pagar:</strong> ${{ total }}</p>
+
+    <div style="text-align: center; margin-bottom: 20px;">
+        <form method="POST" action="/finalizar" style="margin-bottom: 10px;">
+            <label><strong>Método de Pago:</strong></label>
+            <select name="metodo_pago">
+                <option value="efectivo">Efectivo</option>
+                <option value="datafono">Datafono</option>
+            </select>
+            <button class="boton boton-grande" type="submit">Finalizar Pedido</button>
+        </form>
+
+        <form action="/reiniciar">
+            <button class="boton" type="submit">Reiniciar Pedido Actual</button>
+        </form>
+    </div>
+
+    <h2>Historial de Pedidos</h2>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Productos</th>
+            <th>Método de Pago</th>
+            <th>Total</th>
+            <th>Acciones</th>
+        </tr>
+        {% for pedido in historial %}
+        <tr>
+            <td>{{ loop.index0 }}</td>
+            <td>
+                {% for item in pedido.pedido %}
+                    {{ item.nombre }} (x{{ item.cantidad }})<br>
+                {% endfor %}
+            </td>
+            <td>{{ pedido.metodo_pago }}</td>
+            <td>${{ pedido.total }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('eliminar_pedido', indice=loop.index0) }}">
+                    <button class="boton" type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="seccion-total">
+        <p><strong>Total en Efectivo:</strong> ${{ efectivo }}</p>
+        <p><strong>Total por Datafono:</strong> ${{ datafono }}</p>
+
+        <form method="POST" action="/eliminar_todos" onsubmit="return confirm('¿Seguro que quieres eliminar todos los pedidos?');">
+            <button class="boton" type="submit">Eliminar Todos los Pedidos</button>
+        </form>
+    </div>
+</body>
+</html>

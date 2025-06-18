@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleccionar Sede</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            margin-bottom: 50px;
+            font-size: 40px; /* más grande */
+            text-transform: uppercase; /* convierte a MAYÚSCULAS */
+        }
+
+        .boton-sede {
+            display: inline-block;
+            margin: 20px;
+            padding: 25px 50px;
+            font-size: 28px; /* más grande */
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton-sede:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selecciona una sede</h1>
+    <form method="POST" action="{{ url_for('elegir_sede') }}">
+        <button class="boton-sede" name="sede" value="OCCIDENTAL">OCCIDENTAL</button>
+        <button class="boton-sede" name="sede" value="NORTE">NORTE</button>
+    </form>
+</body>
+</html>
