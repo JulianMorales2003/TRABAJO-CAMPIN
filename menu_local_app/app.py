@@ -20,7 +20,7 @@ menu_occidental = [
     {"id": 11, "categoria": "BEBIDAS", "nombre": "GATORADE ZERO", "precio": 12000},
     {"id": 12, "categoria": "BEBIDAS", "nombre": "AGUA BRISA SIN GAS", "precio": 10000},
     {"id": 13, "categoria": "BEBIDAS", "nombre": "CAFE AMERICANO", "precio": 5000},
-    {"id": 14, "categoria": "BEBIDAS", "nombre": "JUGO HIT 200ML", "precio": 5000},
+    {"id": 14, "categoria": "BEBIDAS", "nombre": "JUGO VALLE EN CAJA", "precio": 5000},
     {"id": 15, "categoria": "BEBIDAS", "nombre": "CERVEZA CERO", "precio": 12000},
 ]
 
@@ -32,7 +32,7 @@ menu_norte = [
     {"id": 4, "categoria": "BEBIDAS", "nombre": "COCA COLA ZERO", "precio": 8000},
     {"id": 5, "categoria": "BEBIDAS", "nombre": "GATORADE SURTIDO", "precio": 10000},
     {"id": 6, "categoria": "BEBIDAS", "nombre": "GATORADE SIN AZÚCAR", "precio": 10000},
-    {"id": 7, "categoria": "BEBIDAS", "nombre": "JUGO EN CAJA HIT", "precio": 4000},
+    {"id": 7, "categoria": "BEBIDAS", "nombre": "JUGO VALLE EN CAJA", "precio": 4000},
     {"id": 8, "categoria": "BEBIDAS", "nombre": "CAFÉ AMERICANO", "precio": 4000},
     {"id": 9, "categoria": "BEBIDAS", "nombre": "CERVEZA CERO", "precio": 9000},
     {"id": 10, "categoria": "COMIDAS", "nombre": "CRISPETAS DE SAL", "precio": 15000},
